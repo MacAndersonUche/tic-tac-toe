@@ -3,7 +3,7 @@
 	height: 600px;
 	margin: 0 auto;
   color: #fff;
-  border: 6px solid #2c3e50;
+  border: 1px solid #2c3e50;
   border-radius: 10px;
 	
 	display: grid;
@@ -13,7 +13,7 @@
 
 .box
 {
-  border: 6px solid #2c3e50;
+  border: 2px solid #2c3e50;
   border-radius: 2px;
   font-family: Helvetica;
   font-weight: bold;
