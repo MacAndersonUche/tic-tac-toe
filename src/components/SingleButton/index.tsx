@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "../../styles";
 import { SingleButtonProps } from "../../types";
-import { randomlyGenerateXorO, getStatus } from "../../variables";
+import { randomlyGenerateXorO, getStatus } from "../../utlities/variables";
 
 
 

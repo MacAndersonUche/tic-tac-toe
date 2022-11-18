@@ -32,3 +32,7 @@ export const getStatus = (boxNumber: string, shape: string) => {
 	}
 	return { crossArray, circleArray, shape };
 };
+
+export const checkResult = (arr: string[]): string[][] => {
+	return winArray.filter((winArr) => isSubset(arr, winArr));
+};

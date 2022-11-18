@@ -3,20 +3,20 @@ import React, { useEffect } from "react";
 import Modal from "./components/Modal";
 import SingleButton from "./components/SingleButton";
 import { MainContainer } from "./styles";
-import { FinalState } from "./types";
-import { boxNumbers, isSubset, winArray } from "./variables";
+import { FinalState, SubTtitle } from "./types";
+import { boxNumbers, checkResult } from "./utlities/variables";
 
 function App() {
-	let subtitle: any;
+	let subtitle: SubTtitle;
 	const [result, setResult] = React.useState<FinalState>(FinalState.None);
 	const [noughtsArr, setNoughtsArr] = React.useState<string[]>([]);
 	const [crossesArr, setCrossesArr] = React.useState<string[]>([]);
 	const [modalIsOpen, setIsOpen] = React.useState(false);
 
-
 	function afterOpenModal() {
-		// references are now sync'd and can be accessed.
-		subtitle.style.color = "#f00";
+		if (subtitle) {
+			subtitle.style.color = "#f00";
+		}
 	}
 
 	function closeModal() {
@@ -25,12 +25,8 @@ function App() {
 	}
 
 	useEffect(() => {
-		const noughtResult: string[][] = winArray.filter((won) =>
-			isSubset(noughtsArr, won)
-		);
-		const crossResult: string[][] = winArray.filter((won) =>
-			isSubset(crossesArr, won)
-		);
+		const noughtResult: string[][] = checkResult(noughtsArr);
+		const crossResult: string[][] = checkResult(crossesArr);
 
 		if (noughtResult.length > 0) {
 			console.log("noughts won");
@@ -47,7 +43,6 @@ function App() {
 		}
 
 		setResult(FinalState.Draw);
-
 	}, [noughtsArr, crossesArr]);
 
 	return (
@@ -65,7 +60,7 @@ function App() {
 					);
 				})}
 			</div>
-			{ modalIsOpen && result !== FinalState.None  && (
+			{modalIsOpen && result !== FinalState.None && (
 				<Modal
 					modalIsOpen={modalIsOpen}
 					afterOpenModal={afterOpenModal}

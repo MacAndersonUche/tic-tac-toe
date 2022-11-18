@@ -17,3 +17,10 @@ export interface SingleButtonProps {
 	setNoughtsArr: (value: string[]) => void;
 	setOpen: (value: boolean) => void;
 }
+
+
+export interface SubTtitle {
+    style: {
+        color: string;
+    }
+}
