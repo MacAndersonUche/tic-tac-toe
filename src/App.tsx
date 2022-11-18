@@ -1,14 +1,28 @@
 import React, { useEffect } from "react";
 
-import "./App.css";
+import Modal from "./components/Modal";
 import SingleButton from "./components/SingleButton";
+import { MainContainer } from "./styles";
 import { FinalState } from "./types";
 import { boxNumbers, isSubset, winArray } from "./variables";
 
 function App() {
-	const [winner, setWinner] = React.useState<FinalState>(FinalState.Draw);
+	let subtitle: any;
+	const [result, setResult] = React.useState<FinalState>(FinalState.None);
 	const [noughtsArr, setNoughtsArr] = React.useState<string[]>([]);
 	const [crossesArr, setCrossesArr] = React.useState<string[]>([]);
+	const [modalIsOpen, setIsOpen] = React.useState(false);
+
+
+	function afterOpenModal() {
+		// references are now sync'd and can be accessed.
+		subtitle.style.color = "#f00";
+	}
+
+	function closeModal() {
+		setIsOpen(false);
+		window.location.reload();
+	}
 
 	useEffect(() => {
 		const noughtResult: string[][] = winArray.filter((won) =>
@@ -20,36 +34,45 @@ function App() {
 
 		if (noughtResult.length > 0) {
 			console.log("noughts won");
-
-			setWinner(FinalState.NoughtsWin);
+			setIsOpen(true);
+			setResult(FinalState.NoughtsWin);
 			return;
 		}
 		if (crossResult.length > 0) {
 			console.log("Crosses Won");
+			setIsOpen(true);
 
-			setWinner(FinalState.CrossesWin);
+			setResult(FinalState.CrossesWin);
 			return;
 		}
 
-		setWinner(FinalState.Draw);
+		setResult(FinalState.Draw);
+
 	}, [noughtsArr, crossesArr]);
 
 	return (
 		<div>
-			<div className='grid-container'>
+			<div style={MainContainer}>
 				{boxNumbers.map((boxNumber) => {
 					return (
 						<SingleButton
 							key={boxNumber}
 							boxNumber={boxNumber}
-							isActive={true}
 							setCrossesArr={setCrossesArr}
 							setNoughtsArr={setNoughtsArr}
+							setOpen={setIsOpen}
 						/>
 					);
 				})}
 			</div>
-			{winner !== FinalState.Draw && <h1>{winner}</h1>}
+			{ modalIsOpen && result !== FinalState.None  && (
+				<Modal
+					modalIsOpen={modalIsOpen}
+					afterOpenModal={afterOpenModal}
+					closeModal={closeModal}
+					result={result}
+				/>
+			)}
 		</div>
 	);
 }
