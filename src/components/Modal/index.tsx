@@ -10,7 +10,6 @@ const Modal = ({
 	closeModal,
 	result,
 }: ModalProps) => {
- 
 	return (
 		<ReactModal
 			isOpen={modalIsOpen}
@@ -20,7 +19,9 @@ const Modal = ({
 		>
 			<div>
 				<h1>{result} </h1>
-				<button onClick={closeModal}>Restart</button>
+				<button onClick={closeModal}>
+					Restart
+				</button>
 			</div>
 		</ReactModal>
 	);

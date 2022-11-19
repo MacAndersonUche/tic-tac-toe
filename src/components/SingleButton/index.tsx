@@ -3,9 +3,12 @@ import { Box } from "../../styles";
 import { SingleButtonProps } from "../../types";
 import { randomlyGenerateXorO, getStatus } from "../../utlities/variables";
 
-
-
-const SingleButton = ({ boxNumber, setCrossesArr, setNoughtsArr, setOpen }: SingleButtonProps) => {
+const SingleButton = ({
+	boxNumber,
+	setCrossesArr,
+	setNoughtsArr,
+	setOpen,
+}: SingleButtonProps) => {
 	const [display, setDisplay] = React.useState("");
 
 	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -16,16 +19,13 @@ const SingleButton = ({ boxNumber, setCrossesArr, setNoughtsArr, setOpen }: Sing
 		setNoughtsArr(circleArray);
 
 		setDisplay(valueToDisplay);
-		if(boxNumber === "8"){
+		if (boxNumber === "8") {
 			setOpen(true);
 		}
 	};
 
 	return (
-		<button
-			onClick={handleClick}
-			style={Box }
-		>
+		<button data-test-id='submit-button' onClick={handleClick} style={Box}>
 			{display}
 		</button>
 	);
